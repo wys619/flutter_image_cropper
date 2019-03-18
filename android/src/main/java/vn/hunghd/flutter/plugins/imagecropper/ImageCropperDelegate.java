@@ -36,6 +36,7 @@ public class ImageCropperDelegate implements PluginRegistry.ActivityResultListen
         Double ratioY = call.argument("ratio_y");
         String title = call.argument("toolbar_title");
         Long color = call.argument("toolbar_color");
+        Long toolbarWidgetColor = call.argument("toolbar_widget_color");
         Boolean circleShape = call.argument("circle_shape");
         methodCall = call;
         pendingResult = result;
@@ -58,6 +59,10 @@ public class ImageCropperDelegate implements PluginRegistry.ActivityResultListen
             int intColor = color.intValue();
             options.setToolbarColor(intColor);
             options.setStatusBarColor(darkenColor(intColor));
+        }
+        if (toolbarWidgetColor != null) {
+            int intColor = toolbarWidgetColor.intValue();
+            options.setToolbarWidgetColor(intColor);
         }
         UCrop cropper = UCrop.of(sourceUri, destinationUri).withOptions(options);
         if (maxWidth != null && maxHeight != null) {
